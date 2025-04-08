@@ -1,4 +1,4 @@
-package com.example.FranziManuTomVerena.ToDoList.User;
+package com.example.FranziManuTomVerena.ToDoList.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ToDoList")
+@Table(name = "Users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
