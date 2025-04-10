@@ -1,11 +1,13 @@
 package com.example.FranziManuTomVerena.ToDoList.Controller;
 
 
+import com.example.FranziManuTomVerena.ToDoList.Entity.UserDTO;
 import com.example.FranziManuTomVerena.ToDoList.Entity.UserEntity;
 import com.example.FranziManuTomVerena.ToDoList.Repository.UserRepository;
 import com.example.FranziManuTomVerena.ToDoList.Service.UserService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +26,20 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserEntity> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping
+    public UserDTO getUserByUsername(String username) {
+        return userService.getByUsername(username);
+    }
+
+    @PostMapping
+    public void createUser() {
+
+    }
+
+
 
 }
