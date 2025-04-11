@@ -25,12 +25,12 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping
+    @GetMapping("/byUsername")
     public UserDTO getUserByUsername(String username) {
         return userService.getByUsername(username);
     }
