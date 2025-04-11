@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,8 +25,17 @@ public class UserEntity {
 
     private String lastName;
 
+    @Column(name = "username", unique = true)
+    private String username;
+
+    @Column(name = "email", unique = true)
     private String email;
 
     private String password;
+
+    private boolean isVerified;
+
+    @OneToMany(mappedBy = "user")
+    private List<TicketEntity> tickets = new ArrayList<>();
 
 }
