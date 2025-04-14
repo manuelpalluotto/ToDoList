@@ -25,7 +25,7 @@ public class ProjectEntity {
 
     private String projectName;
 
-    // private String projectDescription;
+    private String projectDescription;
 
     private String projectStatus;
 
@@ -42,7 +42,7 @@ public class ProjectEntity {
     @OneToMany(mappedBy = "id")
     private List<UserEntity> userEntity = new ArrayList<>();
 
-    /* @OneToMany(mappedBy = "id")
-    private List<Tickets> tickets = new ArrayList<>(); */    // Tickets noch nicht existent.
+     @OneToMany(mappedBy = "id")
+    private List<TicketEntity> tickets = new ArrayList<>();     // Tickets noch nicht existent.
 
 }
