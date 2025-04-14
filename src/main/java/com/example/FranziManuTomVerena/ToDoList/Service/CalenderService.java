@@ -1,22 +1,20 @@
-//package com.example.FranziManuTomVerena.ToDoList.Service;
-//
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class CalenderService {
-//    private final TicketRepository ticketRepository;
-//
-//    public CalenderService(TicketRepository ticketRepository){
-//        this.ticketRepository = ticketRepository;
-//    }
-//    public Ticket addTicket(Ticket ticket){
-//        return ticketRepository.save(ticket);
-//    }
-//    public List<Ticket> getAllTickets(){
-//        return ticketRepository.findAll();
-//    }
-//
-//    public Ticket getTicketById(Long id){
-//        return ticketRepository.findById(id);
-//    }
-//}
+package com.example.FranziManuTomVerena.ToDoList.Service;
+
+import com.example.FranziManuTomVerena.ToDoList.Entity.Calender;
+import com.example.FranziManuTomVerena.ToDoList.Repository.CalenderRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CalenderService {
+    private final CalenderRepository calenderRepository;
+
+    public CalenderService(CalenderRepository calenderRepository) {
+        this.calenderRepository = calenderRepository;
+    }
+
+    public List<Calender> findAll() {
+        return calenderRepository.findAll();
+    }
+}
