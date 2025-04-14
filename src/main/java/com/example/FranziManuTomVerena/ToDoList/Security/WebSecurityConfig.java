@@ -1,8 +1,7 @@
 package com.example.FranziManuTomVerena.ToDoList.Security;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,16 +24,12 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-//@AllArgsConstructor
-//@NoArgsConstructor
 
-
-
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    @Autowired
+
     private final JwtAuthenticationFilter jwtAuthFilter;
-    @Autowired
     private final UserDetailsService userDetailsService;
 
     @Bean
