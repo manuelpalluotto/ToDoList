@@ -4,9 +4,7 @@ import com.example.FranziManuTomVerena.ToDoList.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "tickets")
@@ -26,7 +24,7 @@ public class TicketEntity {
 
     private LocalDateTime start;
 
-    private LocalDateTime end;
+    private LocalDateTime finish;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -41,5 +39,5 @@ public class TicketEntity {
 
     @ManyToOne
     @JoinColumn(name = "calender_id")
-    private Calender calender;
+    private CalenderEntity calender;
 }

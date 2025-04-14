@@ -3,11 +3,11 @@ package com.example.FranziManuTomVerena.ToDoList.Security;
 
 import lombok.*;
 
+@Builder
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @Data
 public class LoginRequest {
     private String username;

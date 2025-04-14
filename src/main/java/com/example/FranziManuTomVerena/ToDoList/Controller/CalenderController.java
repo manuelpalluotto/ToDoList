@@ -1,5 +1,5 @@
 package com.example.FranziManuTomVerena.ToDoList.Controller;
-import com.example.FranziManuTomVerena.ToDoList.Entity.Calender;
+import com.example.FranziManuTomVerena.ToDoList.Entity.CalenderEntity;
 import com.example.FranziManuTomVerena.ToDoList.Service.CalenderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class CalenderController {
     }
 
     @GetMapping
-    public List<Calender> findAll(){
+    public List<CalenderEntity> findAll(){
         return calenderService.findAll();
     }
 }

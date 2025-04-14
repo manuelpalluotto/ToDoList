@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "calender")
-public class Calender {
+public class CalenderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,5 +28,5 @@ public class Calender {
 
     private LocalDateTime start;
 
-    private LocalDateTime end;
+    private LocalDateTime finish;
 }
