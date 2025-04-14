@@ -2,6 +2,7 @@ package com.example.FranziManuTomVerena.ToDoList.Authorization;
 
 import com.example.FranziManuTomVerena.ToDoList.Entity.UserEntity;
 import com.example.FranziManuTomVerena.ToDoList.Repository.UserRepository;
+import com.example.FranziManuTomVerena.ToDoList.Security.LoginRequest;
 import com.example.FranziManuTomVerena.ToDoList.Service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,12 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody UserEntity user) {
         userService.saveUser(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginRequest loginRequest) {
+
     }
 
     @Bean
