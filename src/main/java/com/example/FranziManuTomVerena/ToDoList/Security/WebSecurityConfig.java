@@ -1,8 +1,8 @@
 package com.example.FranziManuTomVerena.ToDoList.Security;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,16 +26,12 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-//@AllArgsConstructor
-//@NoArgsConstructor
 
-
-
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    @Autowired
+
     private final JwtAuthenticationFilter jwtAuthFilter;
-    @Autowired
     private final UserDetailsService userDetailsService;
 
     @Bean
@@ -46,6 +43,15 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll() // erlaubt anonym auf Login, Register usw zu gehen
                 .anyRequest().authenticated()
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessHandler((request,
+                                               response,
+                                               authentication) ->  response.setStatus(HttpServletResponse.SC_OK)) // wenn erfolgreich ausgeloggt kommt ein Status 200 zurück
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Spring Security soll keine HTTP-Session erstellen, wenn JWT benutzt ist das wichtig
+                .authenticationManager(authenticationManager())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
@@ -68,8 +74,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManger() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(); // Standart-Provider von Spring Security um Benutzer in einer Datenbank zu authentifizieren
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authProvider);
@@ -77,6 +83,6 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // verschlüsselt Passwörter
     }
 }
