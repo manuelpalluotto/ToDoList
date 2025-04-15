@@ -5,11 +5,9 @@ import com.example.FranziManuTomVerena.ToDoList.Entity.UserDTO;
 import com.example.FranziManuTomVerena.ToDoList.Entity.UserEntity;
 import com.example.FranziManuTomVerena.ToDoList.Repository.UserRepository;
 import com.example.FranziManuTomVerena.ToDoList.Service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +34,10 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser() {
+    public ResponseEntity<String> createUser(@RequestBody UserEntity user) {
+        userService.saveUser(user);
 
+        return ResponseEntity.ok("User created");
     }
 
 

@@ -49,9 +49,7 @@ public class UserService {
                 .lastName(user.getLastName())
                 .isVerified(false)
                 .build();
-
         userRepository.save(savedUser);
-
         return ResponseEntity.ok("User wurde erfolgreich hinzugefügt.");
     }
 

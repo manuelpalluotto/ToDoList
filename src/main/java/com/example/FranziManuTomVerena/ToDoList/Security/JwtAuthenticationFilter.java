@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 // prüft ob username vorhanden ist und ob der aktuelle User noch nicht im SecurityContext authentifiziert ist
 
-                var userDetails = userDetailsService.loadUserByUsername(username);
+                var userDetails = customUserDetailsService.loadUserByUsername(username);
 
                 if (jwtUtil.isTokenValid(token, userDetails)) { // überprüft ob der Token gültig ist, also ob der username mit den UserDetails übereinstimmt
                     var authToken = new UsernamePasswordAuthenticationToken // erstelle ein Authentifzierungsobjekt
