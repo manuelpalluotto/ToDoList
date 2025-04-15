@@ -1,11 +1,10 @@
 package com.example.FranziManuTomVerena.ToDoList.Entity;
 
+import com.example.FranziManuTomVerena.ToDoList.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "tickets")
@@ -23,9 +22,22 @@ public class TicketEntity {
 
     private String title;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime start;
+
+    private LocalDateTime finish;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project;
+
+    @ManyToOne
+    @JoinColumn(name = "calender_id")
+    private CalenderEntity calender;
 }

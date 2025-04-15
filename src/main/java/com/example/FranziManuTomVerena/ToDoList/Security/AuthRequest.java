@@ -1,15 +1,12 @@
 package com.example.FranziManuTomVerena.ToDoList.Security;
 
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.*;
-
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@Data
-public class LoginRequest {
+
+public class AuthRequest {
     private String username;
     private String password;
 }
