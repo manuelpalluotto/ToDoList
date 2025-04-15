@@ -4,6 +4,7 @@ import com.example.FranziManuTomVerena.ToDoList.Entity.UserDTO;
 import com.example.FranziManuTomVerena.ToDoList.Entity.UserEntity;
 import com.example.FranziManuTomVerena.ToDoList.Repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,12 @@ public class UserService {
     }
 
     public UserDTO getByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new UserDTO(user);
     }
 
-    public ResponseEntity saveUser(@RequestBody UserEntity user) {
+    public ResponseEntity<String> saveUser(@RequestBody UserEntity user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
 
         UserEntity savedUser = UserEntity.builder()
@@ -50,7 +52,7 @@ public class UserService {
 
         userRepository.save(savedUser);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User wurde erfolgreich hinzugefügt.");
     }
 
 }
