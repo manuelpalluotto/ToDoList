@@ -26,6 +26,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody UserEntity user) {
         userService.saveUser(user);
+        return ResponseEntity.ok("User erfolgreich registriert");
     }
 
     @Bean

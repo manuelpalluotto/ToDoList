@@ -45,6 +45,6 @@ public class JwtUtil {
                 .getBody()
                 .getExpiration();
 
-        return expiration.before(new Date()); // wenn das Ablaufdatum vor dem aktuellen lief ist der Token expired
+        return expiration.before(new Date()); // wenn das Ablaufdatum vor dem aktuellen lief, ist der Token expired
     }
 }
