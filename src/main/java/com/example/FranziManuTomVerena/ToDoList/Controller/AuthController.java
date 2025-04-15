@@ -24,11 +24,12 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){ // es wird ein JASON-Objekt mit username und passwort vom Frontend gesendet
         var auth = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
-        authenticationManager.authenticate(auth);
+        authenticationManager.authenticate(auth); // Login-Versuch: Passwort wird geprüft und verschlüsselt
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         String token = jwtUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthResponse(token));    }
+        return ResponseEntity.ok(new AuthResponse(token)); // gibt eine JSON Anwort mit dem Token zurück (aus der AuthResponse Klasse)
+    }
 }

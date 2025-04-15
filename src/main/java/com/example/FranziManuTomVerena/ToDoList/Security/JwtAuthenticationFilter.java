@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException, java.io.IOException {
 
-        String authHeader = request.getHeader("Authentization");
+        String authHeader = request.getHeader("Authorization");
 
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -41,13 +41,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String username = jwtUtil.extractUsername(token);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
-                if (jwtUtil.isTokenValid(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken
-                            (userDetails, null, userDetails.getAuthorities());
+                // prüft ob username vorhanden ist und ob der aktuelle User noch nicht im SecurityContext authentifiziert ist
+
+                var userDetails = userDetailsService.loadUserByUsername(username);
+
+                if (jwtUtil.isTokenValid(token, userDetails)) { // überprüft ob der Token gültig ist, also ob der username mit den UserDetails übereinstimmt
+                    var authToken = new UsernamePasswordAuthenticationToken // erstelle ein Authentifzierungsobjekt
+                            (userDetails, null, userDetails.getAuthorities()); // hängt weitere Details hinzu (wie IP-Adressen, Session-ID,...)
+
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    SecurityContextHolder.getContext().setAuthentication(authToken); // Benutzer wird als eingeloggt gesetzt
                 }
             }
         }

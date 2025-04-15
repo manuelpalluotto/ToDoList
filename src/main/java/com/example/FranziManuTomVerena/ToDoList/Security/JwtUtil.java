@@ -12,16 +12,14 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
 
-import static com.nimbusds.jwt.JWTClaimNames.EXPIRATION_TIME;
-
 @Component
 public class JwtUtil {
+
 
     private static final Dotenv dotenv = Dotenv.load();
     private static final String SECRET = dotenv.get("JWT_SECRET");
     private static final SecretKey SECRET_KEY = new SecretKeySpec(SECRET.getBytes(), SignatureAlgorithm.HS256.getJcaName());
     private static final long EXPIRATION_TIME = 86400000; //1
-
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
@@ -36,7 +34,7 @@ public class JwtUtil {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJws(token)//verarbeitet den Token überprüft die Gültigkeit
                 .getBody()
                 .getSubject();
     }
@@ -53,6 +51,6 @@ public class JwtUtil {
                 .getBody()
                 .getExpiration();
 
-        return expiration.before(new Date());
+        return expiration.before(new Date()); // wenn das Ablaufdatum vor dem aktuellen lief, ist der Token expired
     }
 }
