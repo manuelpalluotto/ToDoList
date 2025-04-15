@@ -1,4 +1,4 @@
-package Exception;
+package com.example.FranziManuTomVerena.ToDoList.Exception;
 
 import com.example.FranziManuTomVerena.ToDoList.Security.AuthResponse;
 import org.springframework.http.HttpStatus;
